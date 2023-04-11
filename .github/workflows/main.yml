@@ -25,7 +25,7 @@ jobs:
         run: yarn install
 
       - name: Run unit tests (jest)
-        run: yarn run test
+        run: yarn run test:ci
       
       - name: Run e2e tests (cypress)
         uses: cypress-io/github-action@v5
