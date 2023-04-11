@@ -22,7 +22,7 @@ jobs:
           cache-dependency-path: yarn.lock
 
       - name: Install dependencies
-        run: yarn ci
+        run: yarn install
 
       - name: Run unit tests (jest)
         run: yarn run test
