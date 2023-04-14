@@ -1,5 +1,6 @@
+import { GlobalContainer } from '@/components/fundamental/elements'
 import type { ReactElement } from 'react'
-import { ThemeProvider, BaseStyles } from '@primer/react'
+import '@/styles/globals.css'
 
 function MyApp ({
   Component,
@@ -10,11 +11,9 @@ function MyApp ({
 }): ReactElement {
   return (
     <>
-      <ThemeProvider>
-        <BaseStyles>
-          <Component {...pageProps} />
-        </BaseStyles>
-      </ThemeProvider>
+    <GlobalContainer>
+      <Component {...pageProps} />
+    </GlobalContainer>
     </>
   )
 }
