@@ -1,0 +1,23 @@
+// schema.prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Contact {
+  id        Int     @id @default(autoincrement())
+  name      String  @db.VarChar(100)
+  age       Int  @db.SmallInt
+  phones    Phone[]
+}
+
+model Phone {
+  id        Int     @id @default(autoincrement())
+  number    String  @db.VarChar(16)
+  contact   Contact @relation(fields: [contactId], references: [id])
+  contactId Int
+}
