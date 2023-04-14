@@ -1,9 +1,9 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import type { ReactElement } from 'react'
-import { Button } from '@primer/react'
+import HomePage from '@/components/default-pages/HomePage'
+import axios from 'axios'
 
-export default function Home (): ReactElement {
+export default function Home ({ data }: any): ReactElement {
   return (
     <>
       <Head>
@@ -15,11 +15,23 @@ export default function Home (): ReactElement {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav>
-        <h1>Homepage</h1>
-        <Link href="/about">About</Link>
-        <Button>Default</Button>
-      </nav>
+      <HomePage data={data} />
     </>
   )
+}
+
+export async function getServerSideProps (): Promise<any> {
+  const URL = 'http://localhost:3000/api/contacts'
+
+  const result = await axios.get(URL)
+
+  const data = result.data.contacts
+
+  console.log(data)
+
+  return {
+    props: {
+      data
+    }
+  }
 }
