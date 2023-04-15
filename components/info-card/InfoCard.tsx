@@ -18,7 +18,7 @@ export default function InfoCard ({ data }: { data: Contact }): ReactElement {
     <>
       <Card w="280px" h="280px">
         <Container direction="column" justify="center" align="center">
-          <Text weigth="700" size="18px">
+          <Text weigth="700" size="18px" id='contact-name'>
             {name}
           </Text>
           <Text weigth="600" color="#6418C3" size="14px">
@@ -35,10 +35,10 @@ export default function InfoCard ({ data }: { data: Contact }): ReactElement {
         </Container>
         <Container direction="column" justify="center">
           <Link href={`/contact/more-info/${id}`}>
-            <Button mb="10px">More info</Button>
+            <Button mb="10px" id={`info-${name}`}>More info</Button>
           </Link>
           <Link href={`/contact/edit/${id}`}>
-            <Button>Edit</Button>
+            <Button id={`edit-${name}`}>Edit</Button>
           </Link>
         </Container>
       </Card>

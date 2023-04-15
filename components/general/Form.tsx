@@ -44,6 +44,7 @@ export default function Form ({ type }: any): ReactElement {
               setName(e.target.value)
             }}
             required
+            id='name-input'
           />
         </Container>
         <Container w="inherit" direction="column">
@@ -56,6 +57,7 @@ export default function Form ({ type }: any): ReactElement {
               setAge(e.target.value)
             }}
             required
+            id='age-input'
           />
         </Container>
         {method === 'POST'
@@ -70,6 +72,7 @@ export default function Form ({ type }: any): ReactElement {
                   setPhone(e.target.value)
                 }}
                 required
+                id='first-phone-input'
               />
             </Container>
             {phones.map((phoneItem: any, index: number) => (
@@ -82,6 +85,7 @@ export default function Form ({ type }: any): ReactElement {
                   setPhones(addPhoneValue)
                 }}
                 required
+                id={`phone-input-${index}`}
               />
             ))}
             <Container
@@ -97,6 +101,7 @@ export default function Form ({ type }: any): ReactElement {
                   addPhoneInput.push('')
                   setPhones(addPhoneInput)
                 }}
+                id='plus-btn'
               >
                 +
               </Button>
@@ -129,6 +134,7 @@ export default function Form ({ type }: any): ReactElement {
                     setPhones(addPhoneValue)
                   }}
                   required
+                  id={`edit-input-${index}`}
                 />
               </Container>
             ))}
@@ -145,10 +151,11 @@ export default function Form ({ type }: any): ReactElement {
             }
           }}
           mt="20px"
+          id='act-btn'
         >
           {action}
         </Button>
-        <FormErrorMsg>{errorMsg}</FormErrorMsg>
+        <FormErrorMsg id='error'>{errorMsg}</FormErrorMsg>
       </Container>
     </>
   )

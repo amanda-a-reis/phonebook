@@ -34,12 +34,12 @@ export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
           <Card w="380px" h="480px">
             <Container direction="column" justify="center" align="center">
               <Link href="/">
-                <IconButton></IconButton>
+                <IconButton id='more-info-back'></IconButton>
               </Link>
-              <Text weigth="700" size="26px">
+              <Text weigth="700" size="26px" id='more-info-name'>
                 {data.name}
               </Text>
-              <Text weigth="600" color="#6418C3" size="18px">
+              <Text weigth="600" color="#6418C3" size="18px" id='more-info-age'>
                 {data.age} years old
               </Text>
             </Container>
@@ -54,7 +54,7 @@ export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
                       alt="Phone Icon"
                     />
                   </CardIcon>
-                  <Text mb="0" mt="0" ml="10px">
+                  <Text mb="0" mt="0" ml="10px" id={`more-info-${index}`}>
                     {phone.number}
                   </Text>
                 </Container>

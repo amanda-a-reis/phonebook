@@ -25,9 +25,10 @@ export default function HomePage ({ data }: { data: Contact[] }): ReactElement {
             onChange={(e) => {
               setQuery(e.target.value)
             }}
+            id='search-input'
           />
           <Link href="/contact/create">
-            <Button w="100px" h="50px" ml="15px">
+            <Button w="100px" h="50px" ml="15px" id='create-btn'>
               Create
             </Button>
           </Link>
