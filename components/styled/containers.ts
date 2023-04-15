@@ -13,4 +13,10 @@ const Container = styled.div<any>`
   margin-left: ${(props) => props.ml || '0'};
   margin-right: ${(props) => props.mr || '0'};
 `
-export { Container }
+const GlobalContainer = styled.div`
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+`
+
+export { Container, GlobalContainer }

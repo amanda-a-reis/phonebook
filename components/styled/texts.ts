@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const CardText = styled.p<any>`
+const Text = styled.p<any>`
   margin-bottom: ${(props) => props.mb || '10px'};
   margin-top: ${(props) => props.mt || '10px'};
   margin-left: ${(props) => props.ml || '0'};
@@ -16,4 +16,4 @@ const FormErrorMsg = styled.p`
   color: #c20a00;
 `
 
-export { CardText, FormErrorMsg }
+export { Text, FormErrorMsg }

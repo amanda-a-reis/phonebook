@@ -1,11 +1,5 @@
 import styled from 'styled-components'
 
-const GlobalContainer = styled.div`
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-`
-
 const Header = styled.div`
   width: 100%;
   height: 100px;
@@ -14,6 +8,5 @@ const Header = styled.div`
 `
 
 export {
-  GlobalContainer,
   Header
 }

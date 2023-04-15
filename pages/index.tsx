@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import type { ReactElement } from 'react'
 import HomePage from '@/components/default-pages/HomePage'
-import { axiosGet } from '@/axios/axiosMethods'
+import { axiosGet } from '@/util/axios/axiosMethods'
+import type { Contact } from '@/util/interfaces'
 
-export default function Home ({ data }: any): ReactElement {
+export default function Home ({ data }: { data: Contact[] }): ReactElement {
   return (
     <>
       <Head>
@@ -21,7 +22,7 @@ export default function Home ({ data }: any): ReactElement {
 }
 
 export async function getServerSideProps (): Promise<any> {
-  const data = await axiosGet()
+  const data: Contact[] = await axiosGet()
 
   return {
     props: {
