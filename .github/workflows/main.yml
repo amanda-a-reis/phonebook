@@ -32,3 +32,6 @@ jobs:
         with:
           build: yarn run build
           start: yarn run start
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        
