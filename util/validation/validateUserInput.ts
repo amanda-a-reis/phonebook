@@ -20,7 +20,7 @@ function validateName (name: string): boolean {
 }
 
 function validateAge (age: number): boolean {
-  return String(age).length > 0 && String(age).length <= 3
+  return String(age).length > 0 && String(age).length <= 3 && age > 0 && age < 120 && typeof age === 'number'
 }
 
 function validatePhone (phone: string): boolean {
@@ -63,4 +63,4 @@ async function validate (data: ContactMapper, setError: Dispatch<SetStateAction<
   }
 }
 
-export { validate }
+export { validate, validateName, validateAge, validatePhone, errorMsg }
