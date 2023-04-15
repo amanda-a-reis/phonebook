@@ -1,16 +1,16 @@
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { axiosDelete, axiosGet } from '@/axios/axiosMethods'
+import { axiosDelete, axiosGet } from '@/util/axios/axiosMethods'
 import Form from '@/components/general/Form'
 import { Container, DeleteButton } from '@/components/styled'
 
 export default function EditContact (): ReactElement {
-  const [data, setData] = useState({ name: '', age: '', phones: [] })
+  const [data, setData] = useState({ name: '', phones: [] })
   const { asPath } = useRouter()
   const id = asPath.replace('/contact/edit/', '')
 
-  async function deletContact (): Promise<void> {
+  async function deleteContact (): Promise<void> {
     await axiosDelete(id)
     alert('Contact deleted!')
   }
@@ -21,7 +21,6 @@ export default function EditContact (): ReactElement {
         const contact = await axiosGet(id)
         setData({
           name: contact.name,
-          age: contact.age,
           phones: contact.phones
         })
       }
@@ -49,7 +48,7 @@ export default function EditContact (): ReactElement {
         <Form type={type} />
         <DeleteButton
           onClick={async () => {
-            await deletContact()
+            await deleteContact()
             window.location.assign('/')
           }}
         >

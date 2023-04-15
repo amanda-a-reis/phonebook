@@ -1,8 +1,8 @@
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { axiosGet } from '@/axios/axiosMethods'
 import Image from 'next/image'
+import { axiosGet } from '@/util/axios/axiosMethods'
 import { IconButton, Text, Container, Card, CardIcon } from '@/components/styled'
 
 export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
@@ -12,8 +12,8 @@ export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
     if (id !== '[id]') {
       const dataFetch = async (): Promise<void> => {
         const contact = await axiosGet(id)
-        const orderPhones = contact.phones.sort((a: any, b: any) => a.id - b.id)
-        setData({ name: contact.name, age: contact.age, phones: orderPhones })
+        const crescentOrder = contact.phones.sort((a: any, b: any) => a.id - b.id)
+        setData({ name: contact.name, age: contact.age, phones: crescentOrder })
       }
       void dataFetch()
     }

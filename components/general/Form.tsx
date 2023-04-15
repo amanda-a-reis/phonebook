@@ -1,12 +1,8 @@
 import type { ReactElement } from 'react'
 import { useState, useEffect } from 'react'
-import {
-  validateName,
-  validateAge,
-  validatePhone
-} from '@/validation/validateUserInput'
-import { axiosPost, axiosPut } from '@/axios/axiosMethods'
 import Link from 'next/link'
+import { validate } from '@/util/validation/validateUserInput'
+import { edit, create } from '@/util/actions/actionsMethods'
 import { FormInput, Container, Button, IconButton, FormErrorMsg, Text } from '@/components/styled'
 
 export default function Form ({ type }: any): ReactElement {
@@ -18,37 +14,9 @@ export default function Form ({ type }: any): ReactElement {
 
   const [errorMsg, setErrorMsg] = useState('')
 
-  async function actions (): Promise<void> {
-    switch (method) {
-      case 'POST': {
-        let newPhones = [phone]
-        if (phones.length > 0) {
-          newPhones = [phone, ...phones]
-        }
-        await axiosPost({ name, age: Number(age), phones: newPhones })
-        break
-      }
-      case 'PUT': {
-        let newPhones
-        if (phones.length > 0) {
-          newPhones = [...phones]
-        }
-        await axiosPut({ name, age: Number(age), phones: newPhones }, id)
-        break
-      }
-    }
-  }
-
-  function clearFields (): void {
-    setName('')
-    setAge('')
-    setPhone('')
-    setPhones([])
-  }
-
   useEffect(() => {
     setErrorMsg('')
-  }, [name, age, phone])
+  }, [name, age, phone, phones])
   return (
     <>
       <Container w="500px" direction="column" justify="center" align="center">
@@ -159,7 +127,6 @@ export default function Form ({ type }: any): ReactElement {
                     const addPhoneValue = [...phones]
                     addPhoneValue[index] = e.target.value
                     setPhones(addPhoneValue)
-                    console.log(addPhoneValue)
                   }}
                   required
                 />
@@ -171,52 +138,10 @@ export default function Form ({ type }: any): ReactElement {
           type="button"
           onClick={async () => {
             if (method === 'PUT') {
-              const isValidPhone = phones.map((phone: string) => {
-                if (phone) {
-                  return validatePhone(phone)[0]
-                }
-                return true
-              })
-              const isAllValidPhones = isValidPhone.every((el: boolean) => el)
-              console.log(isAllValidPhones)
-              if (name && !validateName(name)[0]) {
-                setErrorMsg(validateName(name)[1])
-              } else if (age && !validateAge(Number(age))[0]) {
-                setErrorMsg(validateAge(Number(age))[1])
-              } else if (!isAllValidPhones) {
-                setErrorMsg(validatePhone(phone)[1])
-              } else {
-                await actions()
-                if (name === '' && age === '' && phones.length === 0) {
-                  alert('No modification was made.')
-                } else {
-                  alert('Contact edited!')
-                }
-                clearFields()
-                window.location.assign('/')
-              }
+              await validate({ name, age, phone, phones, id }, setErrorMsg, edit)
             }
             if (method === 'POST') {
-              const isValidPhone = phones.map((phone: string) => {
-                return validatePhone(phone)[0]
-              })
-              const isAllValidPhones =
-                isValidPhone.every((el: boolean) => el) &&
-                validatePhone(phone)[0]
-              if (name.length === 0 || age.length === 0 || phone.length === 0) {
-                setErrorMsg('Some required field is empty')
-              } else if (!validateName(name)[0]) {
-                setErrorMsg(validateName(name)[1])
-              } else if (!validateAge(Number(age))[0]) {
-                setErrorMsg(validateAge(Number(age))[1])
-              } else if (!isAllValidPhones) {
-                setErrorMsg('Some phone number is incorrect.')
-              } else {
-                await actions()
-                alert('Contact created!')
-                clearFields()
-                window.location.assign('/')
-              }
+              await validate({ name, age, phone, phones, id }, setErrorMsg, create)
             }
           }}
           mt="20px"

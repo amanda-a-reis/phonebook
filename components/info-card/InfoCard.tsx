@@ -4,15 +4,14 @@ import Image from 'next/image'
 import { Button, Card, CardIcon, Container, Text } from '@/components/styled'
 
 export default function InfoCard ({ data }: any): ReactElement {
-  const name = data.name
-  const age = data.age
-  const ids = data.phones.map((phone: any) => {
+  const { name, age, phones, id } = data
+
+  const ids = phones.map((phone: any) => {
     return phone.id
   })
   const minId = Math.min(...ids)
   const index = ids.indexOf(minId)
-  const principalPhoneNumber = data.phones[index].number
-  const id = String(data.id)
+  const principalPhoneNumber = phones[index].number
 
   return (
     <>
