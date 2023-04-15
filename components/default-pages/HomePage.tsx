@@ -4,12 +4,11 @@ import Link from 'next/link'
 import DefaultHeader from '@/components/general/Header'
 import InfoCard from '../info-card/InfoCard'
 import {
-  ContainerHome,
-  ContainerCard,
-  HomeContainer,
-  CreateContacButton,
   SearchInput
-} from '@/components/fundamental/elements'
+} from '@/components/fundamental/input'
+
+import { Container } from '../fundamental/containers'
+import { Button } from '@/components/fundamental/buttons'
 
 export default function HomePage ({ data }: any): ReactElement {
   const [contactData, setContactData] = useState(data)
@@ -59,9 +58,19 @@ export default function HomePage ({ data }: any): ReactElement {
 
   return (
     <>
-      <HomeContainer>
+      <Container
+      direction='column'
+      align='center'
+      justify='center'
+      >
         <DefaultHeader />
-        <ContainerHome>
+        <Container
+        w='90%'
+        mt='20px'
+        mb='20px'
+        justify='center'
+        align='center'
+        >
           <SearchInput
             placeholder='Search...'
             onChange={(e) => {
@@ -69,15 +78,24 @@ export default function HomePage ({ data }: any): ReactElement {
             }}
           />
           <Link href="/contact/create">
-            <CreateContacButton>Create</CreateContacButton>
+            <Button
+            w='100px'
+            h='50px'
+            ml='15px'
+            >Create</Button>
           </Link>
-        </ContainerHome>
-        <ContainerCard>
+        </Container>
+        <Container
+          w='90%'
+          wrap='wrap'
+          justify='center'
+          align='center'
+        >
           {contactData.map((contact: any, index: number) => (
             <InfoCard data={contact} key={index} />
           ))}
-        </ContainerCard>
-      </HomeContainer>
+        </Container>
+      </Container>
     </>
   )
 }

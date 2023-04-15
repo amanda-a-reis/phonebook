@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import Form from '@/components/general/Form'
-import { ContainerCreate } from '../fundamental/elements'
+import { Container } from '@/components/fundamental/containers'
 
 export default function CreateContact (): ReactElement {
   const type = {
@@ -9,9 +9,15 @@ export default function CreateContact (): ReactElement {
   }
   return (
     <>
-    <ContainerCreate>
+    <Container
+      w='100vw'
+      h='100vh'
+      direction='column'
+      justify='center'
+      align='center'
+    >
         <Form type={type} />
-    </ContainerCreate>
+    </Container>
     </>
   )
 }

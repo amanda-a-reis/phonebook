@@ -1,14 +1,9 @@
 import type { ReactElement } from 'react'
 import { useState, useEffect } from 'react'
 import {
-  Button,
-  FormInput,
-  FormBox,
   FormErrorMsg,
-  CardText,
-  ContainerEdit,
-  ButtonBack
-} from '@/components/fundamental/elements'
+  CardText
+} from '@/components/fundamental/text'
 import {
   validateName,
   validateAge,
@@ -16,6 +11,9 @@ import {
 } from '@/validation/validateUserInput'
 import { axiosPost, axiosPut } from '@/axios/axiosMethods'
 import Link from 'next/link'
+import { Container } from '@/components/fundamental/containers'
+import { Button, IconButton } from '@/components/fundamental/buttons'
+import { FormInput } from '@/components/fundamental/input'
 
 export default function Form ({ type }: any): ReactElement {
   const { method, id, action, phoneNumbers, contactName } = type
@@ -59,9 +57,14 @@ export default function Form ({ type }: any): ReactElement {
   }, [name, age, phone])
   return (
     <>
-      <ContainerEdit>
+      <Container
+        w='500px'
+        direction='column'
+        justify='center'
+        align='center'
+      >
           <Link href='/'>
-            <ButtonBack></ButtonBack>
+            <IconButton></IconButton>
           </Link>
           <CardText weigth='700' size='28px'>{action} contact</CardText>
       {
@@ -71,7 +74,10 @@ export default function Form ({ type }: any): ReactElement {
             )
           : ''
       }
-        <FormBox>
+        <Container
+          w='inherit'
+          direction='column'
+        >
         <p>Name</p>
         <FormInput
           type="text"
@@ -81,8 +87,11 @@ export default function Form ({ type }: any): ReactElement {
           }}
           required
         />
-        </FormBox>
-        <FormBox>
+        </Container>
+        <Container
+          w='inherit'
+          direction='column'
+        >
         <p>Age</p>
         <FormInput
           type="number"
@@ -93,11 +102,17 @@ export default function Form ({ type }: any): ReactElement {
           }}
           required
         />
-        </FormBox>
+        </Container>
         {method === 'POST'
           ? (
-          <FormBox>
-            <FormBox>
+            <Container
+            w='inherit'
+            direction='column'
+          >
+            <Container
+          w='inherit'
+          direction='column'
+        >
             <p>Phone number</p>
             <FormInput
               type="text"
@@ -107,7 +122,7 @@ export default function Form ({ type }: any): ReactElement {
               }}
               required
             />
-            </FormBox>
+            </Container>
             {phones.map((phoneItem: any, index: number) => (
               <FormInput
                 type="text"
@@ -120,8 +135,9 @@ export default function Form ({ type }: any): ReactElement {
                 required
               />
             ))}
-            <FormBox direction='row' align='space-around' mb='50px' mt='20px'>
+            <Container direction='row' justify='space-around' mb='50px' mt='20px'>
             <Button
+              w='120px'
               onClick={() => {
                 const addPhoneInput = [...phones]
                 addPhoneInput.push('')
@@ -131,6 +147,7 @@ export default function Form ({ type }: any): ReactElement {
               +
             </Button>
             <Button
+              w='120px'
               onClick={() => {
                 const addPhoneInput = [...phones]
                 addPhoneInput.pop()
@@ -139,14 +156,17 @@ export default function Form ({ type }: any): ReactElement {
             >
               -
             </Button>
-            </FormBox>
-          </FormBox>
+            </Container>
+          </Container>
             )
           : (
-          <FormBox>
+            <Container
+            w='inherit'
+            direction='column'
+          >
             <p>Phone numbers</p>
             {phoneNumbers.map((phoneItem: any, index: number) => (
-              <FormBox key={index} direction='row' alignItems='center'>
+              <Container key={index} direction='row' align='center'>
                 <CardText weigth='500' size='14px' mr='10px'>{phoneItem.number}</CardText>
                 <FormInput
                   type="text"
@@ -158,9 +178,9 @@ export default function Form ({ type }: any): ReactElement {
                   }}
                   required
                 />
-              </FormBox>
+              </Container>
             ))}
-          </FormBox>
+          </Container>
             )}
           <Button
             type="button"
@@ -221,7 +241,7 @@ export default function Form ({ type }: any): ReactElement {
             {action}
           </Button>
         <FormErrorMsg>{errorMsg}</FormErrorMsg>
-      </ContainerEdit>
+      </Container>
     </>
   )
 }

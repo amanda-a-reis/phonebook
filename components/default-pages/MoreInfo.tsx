@@ -1,9 +1,12 @@
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { ContainerInfo, BoxInfo, CardPhone, CardIcon, CardText, CardInfo, ButtonBack } from '@/components/fundamental/elements'
+import { CardText } from '@/components/fundamental/text'
 import { axiosGet } from '@/axios/axiosMethods'
 import Image from 'next/image'
+import { Container } from '../fundamental/containers'
+import { Card, CardIcon } from '@/components/fundamental/cards'
+import { IconButton } from '@/components/fundamental/buttons'
 
 export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
   const [data, setData] = useState({ name: '', age: '', phones: [] })
@@ -23,11 +26,24 @@ export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
     <>
       {data
         ? (
-        <ContainerInfo>
-          <BoxInfo>
-            <CardInfo>
+        <Container
+          w='100%'
+          h='100vh'
+          wrap='wrap'
+          justify='center'
+          align='center'
+        >
+          <Card
+          w='380px'
+          h='480px'
+          >
+            <Container
+              direction='column'
+              justify='center'
+              align='center'
+            >
             <Link href='/'>
-            <ButtonBack></ButtonBack>
+            <IconButton></IconButton>
           </Link>
               <CardText weigth="700" size="26px">
                 {data.name}
@@ -35,21 +51,29 @@ export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
               <CardText weigth="600" color="#6418C3" size="18px">
                 {data.age} years old
               </CardText>
-            </CardInfo>
-            <CardPhone direction='column'>
+            </Container>
+            <Container
+              w='80%'
+              align='center'
+              direction='column'
+            >
             {data.phones.map((phone: any, index: number) => (
-              <CardPhone key={index} mb='15px'>
+              <Container
+                key={index}
+                w='80%'
+                align='center'
+                mb='15px'>
                 <CardIcon>
                   <Image src="/phone.png" width={16} height={16} alt="Phone Icon" />
                 </CardIcon>
-                <CardText mb="0" ml="10px">
+                <CardText mb="0" mt='0' ml="10px">
                   {phone.number}
                 </CardText>
-              </CardPhone>
+              </Container>
             ))}
-            </CardPhone>
-          </BoxInfo>
-        </ContainerInfo>
+            </Container>
+          </Card>
+        </Container>
           )
         : (
         <div>Loading</div>
