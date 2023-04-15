@@ -5,7 +5,7 @@ interface Phone {
 }
 
 interface Contact {
-  id?: number
+  id: number
   name: string
   age: number
   phones: Phone[]
