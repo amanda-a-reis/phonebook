@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import type { ReactElement } from 'react'
 import HomePage from '@/components/default-pages/HomePage'
-import axios from 'axios'
+import { axiosGet } from '@/axios/axiosMethods'
 
 export default function Home ({ data }: any): ReactElement {
   return (
@@ -21,13 +21,7 @@ export default function Home ({ data }: any): ReactElement {
 }
 
 export async function getServerSideProps (): Promise<any> {
-  const URL = 'http://localhost:3000/api/contacts'
-
-  const result = await axios.get(URL)
-
-  const data = result.data.contacts
-
-  console.log(data)
+  const data = await axiosGet()
 
   return {
     props: {
