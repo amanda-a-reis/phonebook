@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import type { ReactElement } from 'react'
 import HomePage from '@/components/default-pages/HomePage'
-import { axiosGet } from '@/axios/axiosMethods'
+import { axiosGet } from '@/util/axios/axiosMethods'
 
 export default function Home ({ data }: any): ReactElement {
   return (
