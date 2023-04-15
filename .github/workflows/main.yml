@@ -30,5 +30,8 @@ jobs:
       - name: Run e2e tests (cypress)
         uses: cypress-io/github-action@v5
         with:
+          env:
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
           build: yarn run build
           start: yarn run start
+        
