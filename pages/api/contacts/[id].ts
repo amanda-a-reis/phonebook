@@ -1,7 +1,8 @@
 import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import type { Contact, ContactInfo } from '@/util/interfaces'
 
-async function getContacById (id: number): Promise<any> {
+async function getContacById (id: number): Promise<Contact> {
   const contact = await prisma.contact.findUnique({
     where: {
       id
@@ -9,12 +10,12 @@ async function getContacById (id: number): Promise<any> {
     include: {
       phones: true
     }
-  })
+  }) as Contact
 
   return contact
 }
 
-async function deleteContact (id: number): Promise<any> {
+async function deleteContact (id: number): Promise<void> {
   await prisma.phone.deleteMany({
     where: {
       contactId: id
@@ -27,28 +28,28 @@ async function deleteContact (id: number): Promise<any> {
   })
 }
 
-async function updateContact (id: number, contactData: any): Promise<any> {
-  let contact: any
-  if (contactData.name) {
+async function updateContact (id: number, name: string, age: number): Promise<Contact> {
+  let contact: Contact
+  if (name) {
     contact = await prisma.contact.update({
       where: {
         id
       },
       data: {
-        name: contactData.name
+        name
       },
       include: {
         phones: true
       }
     })
   }
-  if (contactData.age) {
+  if (age) {
     contact = await prisma.contact.update({
       where: {
         id
       },
       data: {
-        age: contactData.age
+        age
       },
       include: {
         phones: true
@@ -62,17 +63,17 @@ async function updateContact (id: number, contactData: any): Promise<any> {
     include: {
       phones: true
     }
-  })
+  }) as Contact
   return contact
 }
 
-async function updatePhone (id: number, phoneData: any): Promise<any> {
+async function updatePhone (id: number, phone: string): Promise<void> {
   await prisma.phone.update({
     where: {
       id
     },
     data: {
-      number: phoneData.phone
+      number: phone
     }
   })
 }
@@ -101,14 +102,14 @@ export default async function handler (
         name,
         age,
         phones
-      }: { name: string, age: number, phones: string[] } = req.body
-      const contact = await updateContact(Number(id), { name, age })
+      }: ContactInfo<number, string[]> = req.body
+      const contact = await updateContact(Number(id), name, age)
       if (phones) {
-        phones.map(async (phone: any, index: number) => {
-          if (contact.phones[index].number === phone.number) {
+        phones.map(async (phone: string, index: number) => {
+          if (contact.phones[index].number === phone) {
             return true
           } else {
-            await updatePhone(contact.phones[index].id, { phone })
+            await updatePhone(contact.phones[index].id, phone)
           }
         })
       }

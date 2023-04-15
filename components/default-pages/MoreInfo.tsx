@@ -2,18 +2,19 @@ import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { axiosGet } from '@/util/axios/axiosMethods'
+import { axiosGetById } from '@/util/axios/axiosMethods'
 import { IconButton, Text, Container, Card, CardIcon } from '@/components/styled'
+import type { ContactInfo, Phone, Contact } from '@/util/interfaces'
 
 export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
-  const [data, setData] = useState({ name: '', age: '', phones: [] })
+  const [data, setData] = useState<ContactInfo<string, Phone[]>>({ name: '', age: '', phones: [] })
 
   useEffect(() => {
     if (id !== '[id]') {
       const dataFetch = async (): Promise<void> => {
-        const contact = await axiosGet(id)
-        const crescentOrder = contact.phones.sort((a: any, b: any) => a.id - b.id)
-        setData({ name: contact.name, age: contact.age, phones: crescentOrder })
+        const contact: Contact = await axiosGetById(id)
+        const crescentOrder = contact.phones.sort((a: Phone, b: Phone) => a.id - b.id)
+        setData({ name: contact.name, age: String(contact.age), phones: crescentOrder })
       }
       void dataFetch()
     }
@@ -43,7 +44,7 @@ export default function MoreInfoPage ({ id }: { id: string }): ReactElement {
               </Text>
             </Container>
             <Container w="80%" align="center" direction="column">
-              {data.phones.map((phone: any, index: number) => (
+              {data.phones.map((phone: Phone, index: number) => (
                 <Container key={index} w="80%" align="center" mb="15px">
                   <CardIcon>
                     <Image

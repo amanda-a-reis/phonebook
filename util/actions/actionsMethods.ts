@@ -1,4 +1,5 @@
 import { axiosPost, axiosPut } from '../axios/axiosMethods'
+import type { ContactMapper } from '../interfaces'
 
 const actionsMsg = {
   create: 'Contact created!',
@@ -6,11 +7,11 @@ const actionsMsg = {
   noModify: 'No modification was made.'
 }
 
-async function actions (method: string, data: any): Promise<void> {
+async function actions (method: string, data: ContactMapper): Promise<void> {
   const { name, age, phone, phones, id } = data
   switch (method) {
     case 'POST': {
-      let newPhones = [phone]
+      let newPhones: string[] = [phone]
       if (phones.length > 0) {
         newPhones = [phone, ...phones]
       }
@@ -18,7 +19,7 @@ async function actions (method: string, data: any): Promise<void> {
       break
     }
     case 'PUT': {
-      let newPhones
+      let newPhones: string[] = []
       if (phones.length > 0) {
         newPhones = [...phones]
       }
@@ -28,7 +29,7 @@ async function actions (method: string, data: any): Promise<void> {
   }
 }
 
-async function edit (data: any): Promise<void> {
+async function edit (data: ContactMapper): Promise<void> {
   const { name, age, phone, phones, id } = data
   await actions('PUT', { name, age, phone, phones, id })
   if (name === '' && age === '' && phones.length === 0) {
@@ -39,7 +40,7 @@ async function edit (data: any): Promise<void> {
   window.location.assign('/')
 }
 
-async function create (data: any): Promise<void> {
+async function create (data: ContactMapper): Promise<void> {
   const { name, age, phone, phones, id } = data
   await actions('POST', { name, age, phone, phones, id })
   alert(actionsMsg.create)

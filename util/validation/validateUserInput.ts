@@ -1,3 +1,6 @@
+import type { Dispatch, SetStateAction } from 'react'
+import type { ContactMapper } from '../interfaces'
+
 const errorMsg = {
   name: 'The name is invalid. Please, use only letters.',
   age: 'The age is invalid. Please, use a valid value.',
@@ -31,7 +34,7 @@ function validatePhone (phone: string): boolean {
   return isValidSize && isValidNumber
 }
 
-async function validate (data: any, setError: any, callBack: any): Promise<void> {
+async function validate (data: ContactMapper, setError: Dispatch<SetStateAction<string>>, callBack: any): Promise<void> {
   const { name, age, phone, phones } = data
   let isAllValidPhones
   const isValidPhone = phones.map((phone: string) => {

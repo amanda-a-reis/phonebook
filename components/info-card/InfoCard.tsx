@@ -2,11 +2,12 @@ import type { ReactElement } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button, Card, CardIcon, Container, Text } from '@/components/styled'
+import type { Contact, Phone } from '@/util/interfaces'
 
-export default function InfoCard ({ data }: any): ReactElement {
+export default function InfoCard ({ data }: { data: Contact }): ReactElement {
   const { name, age, phones, id } = data
 
-  const ids = phones.map((phone: any) => {
+  const ids = phones.map((phone: Phone) => {
     return phone.id
   })
   const minId = Math.min(...ids)

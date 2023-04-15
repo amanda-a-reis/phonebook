@@ -1,13 +1,16 @@
-function filterByName (data: any, query: string): any {
-  const filteredData = data.filter((contact: any) =>
+import type { Contact, Phone } from '../interfaces'
+import type { Dispatch, SetStateAction } from 'react'
+
+function filterByName (data: Contact[], query: string): Contact[] {
+  const filteredData = data.filter((contact: Contact) =>
     contact.name.toLowerCase().includes(query.toLowerCase())
   )
   return filteredData
 }
 
-function filterPhones (phones: any, query: string): boolean {
+function filterPhones (phones: Phone[], query: string): boolean {
   return phones
-    .map((phone: any) => {
+    .map((phone: Phone) => {
       if (phone.number.includes(query)) {
         return true
       } else {
@@ -17,12 +20,11 @@ function filterPhones (phones: any, query: string): boolean {
     .some((el: boolean) => el)
 }
 
-function filterByPhone (data: any, query: string): any {
-  const phones = data.filter((contact: any) => filterPhones(contact.phones, query))
-  return phones
+function filterByPhone (data: Contact[], query: string): Contact[] {
+  return data.filter((contact: Contact) => filterPhones(contact.phones, query))
 }
 
-function filter (data: any, query: string, setContact: any): void {
+function filter (data: Contact[], query: string, setContact: Dispatch<SetStateAction<Contact[]>>): void {
   const phone = filterByPhone(data, query)
   const name = filterByName(data, query)
   if (phone.length > 0) {

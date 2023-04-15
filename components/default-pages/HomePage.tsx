@@ -5,8 +5,9 @@ import DefaultHeader from '@/components/general/Header'
 import InfoCard from '@/components/info-card/InfoCard'
 import { Button, SearchInput, Container } from '@/components/styled'
 import { filter } from '@/util/filter/searchMethods'
+import type { Contact } from '@/util/interfaces'
 
-export default function HomePage ({ data }: any): ReactElement {
+export default function HomePage ({ data }: { data: Contact[] }): ReactElement {
   const [contactData, setContactData] = useState(data)
   const [query, setQuery] = useState('')
 
@@ -32,7 +33,7 @@ export default function HomePage ({ data }: any): ReactElement {
           </Link>
         </Container>
         <Container w="90%" wrap="wrap" justify="center" align="center">
-          {contactData.map((contact: any, index: number) => (
+          {contactData.map((contact: Contact, index: number) => (
             <InfoCard data={contact} key={index} />
           ))}
         </Container>
