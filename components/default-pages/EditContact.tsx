@@ -1,12 +1,10 @@
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
-import {
-  ContainerCreate,
-  DeleteButton
-} from '@/components/fundamental/elements'
+import { DeleteButton } from '@/components/fundamental/buttons'
 import { useRouter } from 'next/router'
 import { axiosDelete, axiosGet } from '@/axios/axiosMethods'
 import Form from '../general/Form'
+import { Container } from '@/components/fundamental/containers'
 
 export default function EditContact (): ReactElement {
   const [data, setData] = useState({ name: '', age: '', phones: [] })
@@ -22,7 +20,11 @@ export default function EditContact (): ReactElement {
     if (id !== '[id]') {
       const dataFetch = async (): Promise<void> => {
         const contact = await axiosGet(id)
-        setData({ name: contact.name, age: contact.age, phones: contact.phones })
+        setData({
+          name: contact.name,
+          age: contact.age,
+          phones: contact.phones
+        })
       }
       void dataFetch()
     }
@@ -38,7 +40,13 @@ export default function EditContact (): ReactElement {
 
   return (
     <>
-      <ContainerCreate>
+      <Container
+        w="100vw"
+        h="100vh"
+        direction="column"
+        justify="center"
+        align="center"
+      >
         <Form type={type} />
         <DeleteButton
           onClick={async () => {
@@ -48,7 +56,7 @@ export default function EditContact (): ReactElement {
         >
           Delete
         </DeleteButton>
-      </ContainerCreate>
+      </Container>
     </>
   )
 }
