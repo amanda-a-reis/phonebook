@@ -1,12 +1,12 @@
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 import {
-  Button,
-  TextInput,
-  GlobalContainer
+  ContainerCreate,
+  DeleteButton
 } from '@/components/fundamental/elements'
-import axios from 'axios'
 import { useRouter } from 'next/router'
+import { axiosDelete, axiosGet } from '@/axios/axiosMethods'
+import Form from '../general/Form'
 
 export default function EditContact (): ReactElement {
   const [data, setData] = useState({ name: '', age: '', phones: [] })
@@ -14,46 +14,41 @@ export default function EditContact (): ReactElement {
   const id = asPath.replace('/contact/edit/', '')
 
   async function deletContact (): Promise<void> {
-    const URL = `http://localhost:3000/api/contacts/${id}`
-    await axios.delete(URL)
-    alert('User deleted!')
+    await axiosDelete(id)
+    alert('Contact deleted!')
   }
 
   useEffect(() => {
-    const URL = `http://localhost:3000/api/contacts/${id}`
-    console.log(id)
     if (id !== '[id]') {
       const dataFetch = async (): Promise<void> => {
-        const data = await axios.get(URL)
-
-        const contact = data.data.contact
-        setData(contact)
+        const contact = await axiosGet(id)
+        setData({ name: contact.name, age: contact.age, phones: contact.phones })
       }
       void dataFetch()
     }
   }, [id])
 
+  const type = {
+    method: 'PUT',
+    action: 'Edit',
+    id,
+    phoneNumbers: data.phones,
+    contactName: data.name
+  }
+
   return (
     <>
-      <GlobalContainer>
-        <h1>Edit Contact</h1>
-        <p>{data.name}</p>
-        <p>Name</p>
-        <TextInput />
-        <p>Age</p>
-        <TextInput />
-        <p>Phone number</p>
-        <TextInput />
-        <Button>Edit</Button>
-        <Button
+      <ContainerCreate>
+        <Form type={type} />
+        <DeleteButton
           onClick={async () => {
             await deletContact()
             window.location.assign('/')
           }}
         >
           Delete
-        </Button>
-      </GlobalContainer>
+        </DeleteButton>
+      </ContainerCreate>
     </>
   )
 }

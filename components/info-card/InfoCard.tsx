@@ -1,62 +1,54 @@
 import type { ReactElement } from 'react'
-import { Box, Text } from '@primer/react'
 import {
-  Button,
+  CardButton,
   BoxCard,
-  BoxColumn,
-  BoxRow
+  CardInfo,
+  CardPhone,
+  CardButtonContainer,
+  CardText,
+  CardIcon
 } from '@/components/fundamental/elements'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function InfoCard ({ data }: any): ReactElement {
   const name = data.name
   const age = data.age
-  const principalPhoneNumber = data.phones[0].number
+  const ids = data.phones.map((phone: any) => {
+    return phone.id
+  })
+  const minId = Math.min(...ids)
+  const index = ids.indexOf(minId)
+  const principalPhoneNumber = data.phones[index].number
   const id = String(data.id)
 
   return (
     <>
       <BoxCard>
-        <Box
-          sx={{
-            ml: 4
-          }}
-        >
-          <BoxColumn>
-            <Text
-              sx={{
-                fontWeight: 'bold',
-                fontSize: 16
-              }}
-            >
-              {name}
-            </Text>
-            <Text
-              sx={{
-                fontSize: 14,
-                color: '#424a53'
-              }}
-            >
-              {age}
-            </Text>
-            <Text
-              sx={{
-                fontSize: 14,
-                color: '#424a53'
-              }}
-            >
-              {principalPhoneNumber}
-            </Text>
-          </BoxColumn>
+        <CardInfo>
+          <CardText weigth="700" size="18px">
+            {name}
+          </CardText>
+          <CardText weigth="600" color="#6418C3" size="14px">
+            {age} years old
+          </CardText>
+        </CardInfo>
+        <CardPhone>
+          <CardIcon>
+            <Image src="/phone.png" width={16} height={16} alt="Phone Icon" />
+          </CardIcon>
+          <CardText mb="0" ml="10px">
+            {principalPhoneNumber}
+          </CardText>
+        </CardPhone>
+        <CardButtonContainer>
           <Link href={`/contact/more-info/${id}`}>
-            <Button>More info</Button>
+            <CardButton>More info</CardButton>
           </Link>
-        </Box>
-        <BoxRow>
           <Link href={`/contact/edit/${id}`}>
-            <Button>Edit</Button>
+            <CardButton>Edit</CardButton>
           </Link>
-        </BoxRow>
+        </CardButtonContainer>
       </BoxCard>
     </>
   )
