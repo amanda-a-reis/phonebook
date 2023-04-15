@@ -1,10 +1,9 @@
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
-import { DeleteButton } from '@/components/fundamental/buttons'
 import { useRouter } from 'next/router'
 import { axiosDelete, axiosGet } from '@/axios/axiosMethods'
-import Form from '../general/Form'
-import { Container } from '@/components/fundamental/containers'
+import Form from '@/components/general/Form'
+import { Container, DeleteButton } from '@/components/styled'
 
 export default function EditContact (): ReactElement {
   const [data, setData] = useState({ name: '', age: '', phones: [] })

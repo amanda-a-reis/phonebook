@@ -1,4 +1,4 @@
-import { GlobalContainer } from '@/components/fundamental/elements'
+import { GlobalContainer } from '@/components/styled'
 import type { ReactElement } from 'react'
 import '@/styles/globals.css'
 
@@ -11,9 +11,9 @@ function MyApp ({
 }): ReactElement {
   return (
     <>
-    <GlobalContainer>
-      <Component {...pageProps} />
-    </GlobalContainer>
+      <GlobalContainer>
+        <Component {...pageProps} />
+      </GlobalContainer>
     </>
   )
 }

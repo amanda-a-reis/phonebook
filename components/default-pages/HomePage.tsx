@@ -3,12 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import DefaultHeader from '@/components/general/Header'
 import InfoCard from '../info-card/InfoCard'
-import {
-  SearchInput
-} from '@/components/fundamental/input'
-
-import { Container } from '../fundamental/containers'
-import { Button } from '@/components/fundamental/buttons'
+import { Button, SearchInput, Container } from '@/components/styled'
 
 export default function HomePage ({ data }: any): ReactElement {
   const [contactData, setContactData] = useState(data)
@@ -58,39 +53,22 @@ export default function HomePage ({ data }: any): ReactElement {
 
   return (
     <>
-      <Container
-      direction='column'
-      align='center'
-      justify='center'
-      >
+      <Container direction="column" align="center" justify="center">
         <DefaultHeader />
-        <Container
-        w='90%'
-        mt='20px'
-        mb='20px'
-        justify='center'
-        align='center'
-        >
+        <Container w="90%" mt="20px" mb="20px" justify="center" align="center">
           <SearchInput
-            placeholder='Search...'
+            placeholder="Search..."
             onChange={(e) => {
               setQuery(e.target.value)
             }}
           />
           <Link href="/contact/create">
-            <Button
-            w='100px'
-            h='50px'
-            ml='15px'
-            >Create</Button>
+            <Button w="100px" h="50px" ml="15px">
+              Create
+            </Button>
           </Link>
         </Container>
-        <Container
-          w='90%'
-          wrap='wrap'
-          justify='center'
-          align='center'
-        >
+        <Container w="90%" wrap="wrap" justify="center" align="center">
           {contactData.map((contact: any, index: number) => (
             <InfoCard data={contact} key={index} />
           ))}
