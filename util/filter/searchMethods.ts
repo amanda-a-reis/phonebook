@@ -38,4 +38,4 @@ function filter (data: Contact[], query: string, setContact: Dispatch<SetStateAc
   }
 }
 
-export { filter }
+export { filter, filterByName, filterByPhone }
