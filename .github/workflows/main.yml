@@ -31,7 +31,7 @@ jobs:
         uses: cypress-io/github-action@v5
         with:
           build: yarn run build
-          start: yarn run start
+          start: yarn run dev
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
         
