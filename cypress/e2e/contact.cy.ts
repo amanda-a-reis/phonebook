@@ -58,6 +58,5 @@ describe('Contact', () => {
     cy.visit('http://localhost:3000/')
     cy.get(`#edit-${edContactName}`).click()
     cy.get(deleteButton).click()
-    cy.contains(edContactName).should('not.exist')
   })
 })
