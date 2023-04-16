@@ -59,6 +59,8 @@ describe('Contact', () => {
   })
   it('should delete contact', () => {
     cy.visit('http://localhost:3000/')
+    cy.reload()
+    cy.reload()
     cy.get(searchInput).type(edContactName)
     cy.get(editInfoButtonEd).click()
     cy.get(deleteButton).click()
