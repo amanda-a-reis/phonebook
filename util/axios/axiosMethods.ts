@@ -1,7 +1,7 @@
 import axios from 'axios'
 import type { Contact, ContactInfo } from '../interfaces'
 
-const baseURL = process.env.URL || ''
+const baseURL = process.env.URL || 'http://localhost:3000/'
 
 async function axiosPost (data: ContactInfo<number, string[]>): Promise<void> {
   const { name, age, phones } = data
@@ -30,7 +30,7 @@ async function axiosGet (): Promise<Contact[]> {
 }
 
 async function axiosGetById (id: string): Promise<Contact> {
-  const URL = `http://localhost:3000/api/contacts/${id}`
+  const URL = `${baseURL}api/contacts/${id}`
   const result: Contact = (await axios.get(URL)).data.contact
   return result
 }
