@@ -34,23 +34,13 @@ function validatePhone (phone: string): boolean {
   return isValidSize && isValidNumber
 }
 
-async function validate (data: ContactMapper, setError: Dispatch<SetStateAction<string>>, callBack: any): Promise<void> {
+async function validateCreate (data: ContactMapper, setError: Dispatch<SetStateAction<string>>, callBack: any): Promise<void> {
   const { name, age, phone, phones } = data
-  let isAllValidPhones
   const isValidPhone = phones.map((phone: string) => {
-    if (phone) {
-      return validatePhone(phone)
-    }
-    return true
+    return validatePhone(phone)
   })
-  if (callBack.name === 'edit') {
-    isAllValidPhones = isValidPhone.every((el: boolean) => el)
-  }
-  if (callBack.name === 'create') {
-    isAllValidPhones = isValidPhone.every((el: boolean) => el) &&
-    validatePhone(phone)
-  }
-  if ((name.length === 0 || age.length === 0 || phone.length === 0) && callBack.name === 'create') {
+  const isAllValidPhones = isValidPhone.every((el: boolean) => el) && validatePhone(phone)
+  if ((name.length === 0 || age.length === 0 || phone.length === 0)) {
     setError(errorMsg.required)
   } else if (name && !validateName(name)) {
     setError(errorMsg.name)
@@ -63,4 +53,21 @@ async function validate (data: ContactMapper, setError: Dispatch<SetStateAction<
   }
 }
 
-export { validate, validateName, validateAge, validatePhone, errorMsg }
+async function validateEdit (data: ContactMapper, setError: Dispatch<SetStateAction<string>>, callBack: any): Promise<void> {
+  const { name, age, phones } = data
+  const isValidPhone = phones.map((phone: string) => {
+    return validatePhone(phone)
+  })
+  const isAllValidPhones = isValidPhone.every((el: boolean) => el)
+  if (name && !validateName(name)) {
+    setError(errorMsg.name)
+  } else if (age && !validateAge(Number(age))) {
+    setError(errorMsg.age)
+  } else if (!isAllValidPhones) {
+    setError(errorMsg.phone)
+  } else {
+    await callBack(data)
+  }
+}
+
+export { validateCreate, validateEdit, validateName, validateAge, validatePhone, errorMsg }

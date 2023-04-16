@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { validate } from '@/util/validation/validateUserInput'
+import { validateCreate, validateEdit } from '@/util/validation/validateUserInput'
 import { edit, create } from '@/util/actions/actionsMethods'
 import { FormInput, Container, Button, IconButton, FormErrorMsg, Text } from '@/components/styled'
 
@@ -44,6 +44,7 @@ export default function Form ({ type }: any): ReactElement {
               setName(e.target.value)
             }}
             required
+            id='name-input'
           />
         </Container>
         <Container w="inherit" direction="column">
@@ -56,6 +57,7 @@ export default function Form ({ type }: any): ReactElement {
               setAge(e.target.value)
             }}
             required
+            id='age-input'
           />
         </Container>
         {method === 'POST'
@@ -70,6 +72,7 @@ export default function Form ({ type }: any): ReactElement {
                   setPhone(e.target.value)
                 }}
                 required
+                id='first-phone-input'
               />
             </Container>
             {phones.map((phoneItem: any, index: number) => (
@@ -82,6 +85,7 @@ export default function Form ({ type }: any): ReactElement {
                   setPhones(addPhoneValue)
                 }}
                 required
+                id={`phone-input-${index}`}
               />
             ))}
             <Container
@@ -97,6 +101,7 @@ export default function Form ({ type }: any): ReactElement {
                   addPhoneInput.push('')
                   setPhones(addPhoneInput)
                 }}
+                id='plus-btn'
               >
                 +
               </Button>
@@ -129,6 +134,7 @@ export default function Form ({ type }: any): ReactElement {
                     setPhones(addPhoneValue)
                   }}
                   required
+                  id={`edit-input-${index}`}
                 />
               </Container>
             ))}
@@ -138,17 +144,18 @@ export default function Form ({ type }: any): ReactElement {
           type="button"
           onClick={async () => {
             if (method === 'PUT') {
-              await validate({ name, age, phone, phones, id }, setErrorMsg, edit)
+              await validateEdit({ name, age, phone, phones, id }, setErrorMsg, edit)
             }
             if (method === 'POST') {
-              await validate({ name, age, phone, phones, id }, setErrorMsg, create)
+              await validateCreate({ name, age, phone, phones, id }, setErrorMsg, create)
             }
           }}
           mt="20px"
+          id='act-btn'
         >
           {action}
         </Button>
-        <FormErrorMsg>{errorMsg}</FormErrorMsg>
+        <FormErrorMsg id='error'>{errorMsg}</FormErrorMsg>
       </Container>
     </>
   )

@@ -53,6 +53,7 @@ export default function EditContact (): ReactElement {
             await deleteContact()
             window.location.assign('/')
           }}
+          id='delete-btn'
         >
           Delete
         </DeleteButton>
