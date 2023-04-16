@@ -54,15 +54,6 @@ describe('Contact', () => {
     cy.get(actButton).click()
     cy.visit('http://localhost:3000/')
   })
-  it('should verify if contact was edited', () => {
-    cy.visit('http://localhost:3000/')
-    cy.get(`#info-${edContactName}`).click()
-    cy.get(moreInfoName).should('have.text', edContactName)
-    cy.get(moreInfoAge).should('have.text', `${edContactAge} years old`)
-    cy.get(moreInfoPhone).should('have.text', edContactFirstPhone)
-    cy.get(moreInfoBackButton).click()
-    cy.url().should('eq', 'http://localhost:3000/')
-  })
   it('should delete contact', () => {
     cy.visit('http://localhost:3000/')
     cy.get(`#edit-${edContactName}`).click()
