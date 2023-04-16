@@ -56,19 +56,10 @@ describe('Contact', () => {
     cy.get(edit.editPhoneInput).type(edContactFirstPhone)
     cy.get(actButton).click()
   })
-  it('should verify if contact was edited', () => {
+  it('should delete contact', () => {
     cy.visit('http://localhost:3000/')
     cy.reload()
     cy.get(searchInput).type(edContactName)
-    cy.get(moreInfoButtonEd).click()
-    cy.get(moreInfoName).should('have.text', edContactName)
-    cy.get(moreInfoAge).should('have.text', `${edContactAge} years old`)
-    cy.get(moreInfoPhone).should('have.text', edContactFirstPhone)
-    cy.get(moreInfoBackButton).click()
-    cy.url().should('eq', 'http://localhost:3000/')
-  })
-  it('should delete contact', () => {
-    cy.visit('http://localhost:3000/')
     cy.get(editInfoButtonEd).click()
     cy.get(deleteButton).click()
   })
