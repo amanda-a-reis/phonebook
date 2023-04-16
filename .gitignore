@@ -3,6 +3,8 @@
 # vscode
 .vscode
 
+# log
+logs.txt
 
 # dependencies
 /node_modules
