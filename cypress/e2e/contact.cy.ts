@@ -1,4 +1,4 @@
-import { create, moreInfo, edit, deleteButton } from './ids'
+import { create, moreInfo, edit, deleteButton, searchInput } from './ids'
 
 const {
   createButton,
@@ -26,6 +26,8 @@ const edContactFirstPhone = '25468954200'
 const moreInfoButton = `#info-${contactName}`
 const editInfoButton = `#edit-${contactName}`
 
+const editInfoButtonEd = `#edit-${edContactName}`
+
 describe('Contact', () => {
   it('should create a new contact', () => {
     cy.visit('http://localhost:3000/')
@@ -52,10 +54,15 @@ describe('Contact', () => {
     cy.get(ageInput).type(edContactAge)
     cy.get(edit.editPhoneInput).type(edContactFirstPhone)
     cy.get(actButton).click()
+    cy.visit('http://localhost:3000/')
+    cy.reload()
   })
   it('should delete contact', () => {
     cy.visit('http://localhost:3000/')
-    cy.get(`#edit-${edContactName}`).click()
+    cy.reload()
+    cy.reload()
+    cy.get(searchInput).type(edContactName)
+    cy.get(editInfoButtonEd).click()
     cy.get(deleteButton).click()
   })
 })
