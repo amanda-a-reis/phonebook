@@ -56,6 +56,9 @@ describe('Contact', () => {
     cy.get(edit.editPhoneInput).type(edContactFirstPhone)
     cy.get(actButton).click()
   })
+  it('should visit homepage', () => {
+    cy.visit('http://localhost:3000/')
+  })
   it('should verify if contact was edited', () => {
     cy.visit('http://localhost:3000/')
     cy.get(moreInfoButtonEd).click()
