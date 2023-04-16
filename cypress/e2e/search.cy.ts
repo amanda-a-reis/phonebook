@@ -24,7 +24,7 @@ describe('Search', () => {
     cy.get(addPhoneButton).click()
     cy.get(terciaryPhoneInput).type(John.phones[2])
     cy.get(actButton).click()
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3000/')
   })
   it('should create second contact', () => {
     cy.visit('http://localhost:3000/contact/create')
@@ -34,7 +34,7 @@ describe('Search', () => {
     cy.get(addPhoneButton).click()
     cy.get(secondaryPhoneInput).type(Jane.phones[1])
     cy.get(actButton).click()
-    cy.visit('http://localhost:3000')
+    cy.visit('http://localhost:3000/')
   })
   it('should find unique contact by name', () => {
     cy.visit('http://localhost:3000/')
