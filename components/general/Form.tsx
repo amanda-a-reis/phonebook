@@ -19,7 +19,7 @@ export default function Form ({ type }: any): ReactElement {
   }, [name, age, phone, phones])
   return (
     <>
-      <Container w="500px" direction="column" justify="center" align="center">
+      <Container w="80%" direction="column" justify="center" align="center" mt="80px">
         <Link href="/">
           <IconButton></IconButton>
         </Link>

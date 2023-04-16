@@ -11,7 +11,6 @@ export default function CreateContact (): ReactElement {
     <>
       <Container
         w="100vw"
-        h="100vh"
         direction="column"
         justify="center"
         align="center"
