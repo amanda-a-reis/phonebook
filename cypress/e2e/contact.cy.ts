@@ -52,7 +52,6 @@ describe('Contact', () => {
     cy.get(ageInput).type(edContactAge)
     cy.get(edit.editPhoneInput).type(edContactFirstPhone)
     cy.get(actButton).click()
-    cy.visit('http://localhost:3000/')
   })
   it('should delete contact', () => {
     cy.visit('http://localhost:3000/')
