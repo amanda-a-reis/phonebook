@@ -30,6 +30,11 @@ async function deleteContact (id: number): Promise<void> {
   const now = new Date().toLocaleString('pt-BR')
   const logMsg = `Contact id: ${id} was deleted at ${now}`
   logger.info(logMsg)
+  await prisma.log.create({
+    data: {
+      message: logMsg
+    }
+  })
 }
 
 async function updateContact (id: number, name: string, age: number): Promise<Contact> {
