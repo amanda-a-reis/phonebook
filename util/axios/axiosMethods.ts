@@ -1,7 +1,14 @@
 import axios from 'axios'
 import type { Contact, ContactInfo } from '../interfaces'
 
-const baseURL = process.env.URL || 'http://localhost:3000/'
+let baseURL: string
+if (process.env.NODE_ENV === 'development') {
+  baseURL = 'http://localhost:3000/'
+} else if (process.env.NODE_ENV === 'production') {
+  baseURL = 'https://phonebook-beige.vercel.app/'
+} else {
+  baseURL = 'http://localhost:3000/'
+}
 
 async function axiosPost (data: ContactInfo<number, string[]>): Promise<void> {
   const { name, age, phones } = data
