@@ -1,6 +1,7 @@
 import prisma from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import type { Contact, ContactInfo } from '@/util/interfaces'
+import { logger } from '@/util/log'
 
 async function getContacById (id: number): Promise<Contact> {
   const contact = await prisma.contact.findUnique({
@@ -26,6 +27,9 @@ async function deleteContact (id: number): Promise<void> {
       id
     }
   })
+  const now = new Date().toLocaleString('pt-BR')
+  const logMsg = `Contact id: ${id} was deleted at ${now}`
+  logger.info(logMsg)
 }
 
 async function updateContact (id: number, name: string, age: number): Promise<Contact> {
