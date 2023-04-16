@@ -1,8 +1,7 @@
 import { errorMsg } from '../../util/validation/validateUserInput'
 import { create, error } from './ids'
 
-const url = 'http://localhost:3000/'
-url.concat('contact/create')
+const url = 'http://localhost:3000/contact/create'
 
 const {
   nameInput,
