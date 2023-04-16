@@ -26,7 +26,6 @@ const edContactFirstPhone = '25468954200'
 const moreInfoButton = `#info-${contactName}`
 const editInfoButton = `#edit-${contactName}`
 
-const moreInfoButtonEd = `#info-${edContactName}`
 const editInfoButtonEd = `#edit-${edContactName}`
 
 describe('Contact', () => {
