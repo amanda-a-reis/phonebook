@@ -34,6 +34,7 @@ describe('Contact', () => {
     cy.get(ageInput).type(contactAge)
     cy.get(phoneInput).type(contactFirstPhone)
     cy.get(actButton).click()
+    cy.visit('http://localhost:3000/')
   })
   it('should verify if contact was created', () => {
     cy.visit('http://localhost:3000/')
@@ -51,10 +52,11 @@ describe('Contact', () => {
     cy.get(ageInput).type(edContactAge)
     cy.get(edit.editPhoneInput).type(edContactFirstPhone)
     cy.get(actButton).click()
+    cy.visit('http://localhost:3000/')
   })
   it('should verify if contact was edited', () => {
     cy.visit('http://localhost:3000/')
-    cy.get(`#info-${contactName}`).click()
+    cy.get(`#info-${edContactName}`).click()
     cy.get(moreInfoName).should('have.text', edContactName)
     cy.get(moreInfoAge).should('have.text', `${edContactAge} years old`)
     cy.get(moreInfoPhone).should('have.text', edContactFirstPhone)
