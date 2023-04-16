@@ -1,4 +1,4 @@
-import { create, moreInfo, edit, deleteButton } from './ids'
+import { create, moreInfo, edit, deleteButton, searchInput } from './ids'
 
 const {
   createButton,
@@ -56,11 +56,10 @@ describe('Contact', () => {
     cy.get(edit.editPhoneInput).type(edContactFirstPhone)
     cy.get(actButton).click()
   })
-  it('should visit homepage', () => {
-    cy.visit('http://localhost:3000/')
-  })
   it('should verify if contact was edited', () => {
     cy.visit('http://localhost:3000/')
+    cy.reload()
+    cy.get(searchInput).type(edContactName)
     cy.get(moreInfoButtonEd).click()
     cy.get(moreInfoName).should('have.text', edContactName)
     cy.get(moreInfoAge).should('have.text', `${edContactAge} years old`)
