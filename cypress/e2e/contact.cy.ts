@@ -54,10 +54,11 @@ describe('Contact', () => {
     cy.get(ageInput).type(edContactAge)
     cy.get(edit.editPhoneInput).type(edContactFirstPhone)
     cy.get(actButton).click()
+    cy.visit('http://localhost:3000/')
+    cy.reload()
   })
   it('should delete contact', () => {
     cy.visit('http://localhost:3000/')
-    cy.reload()
     cy.get(searchInput).type(edContactName)
     cy.get(editInfoButtonEd).click()
     cy.get(deleteButton).click()
