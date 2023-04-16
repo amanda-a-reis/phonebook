@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { validate } from '@/util/validation/validateUserInput'
+import { validateCreate, validateEdit } from '@/util/validation/validateUserInput'
 import { edit, create } from '@/util/actions/actionsMethods'
 import { FormInput, Container, Button, IconButton, FormErrorMsg, Text } from '@/components/styled'
 
@@ -144,10 +144,10 @@ export default function Form ({ type }: any): ReactElement {
           type="button"
           onClick={async () => {
             if (method === 'PUT') {
-              await validate({ name, age, phone, phones, id }, setErrorMsg, edit)
+              await validateEdit({ name, age, phone, phones, id }, setErrorMsg, edit)
             }
             if (method === 'POST') {
-              await validate({ name, age, phone, phones, id }, setErrorMsg, create)
+              await validateCreate({ name, age, phone, phones, id }, setErrorMsg, create)
             }
           }}
           mt="20px"
