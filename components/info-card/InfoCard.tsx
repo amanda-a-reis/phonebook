@@ -25,7 +25,7 @@ export default function InfoCard ({ data }: { data: Contact }): ReactElement {
             {age} years old
           </Text>
         </Container>
-        <Container w="80%" align="center">
+        <Container w="200px" align="center">
           <CardIcon>
             <Image src="/phone.png" width={16} height={16} alt="Phone Icon" />
           </CardIcon>
