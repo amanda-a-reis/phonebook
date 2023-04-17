@@ -30,6 +30,11 @@ async function deleteContact (id: number): Promise<void> {
   const now = new Date().toLocaleString('pt-BR')
   const logMsg = `Contact id: ${id} was deleted at ${now}`
   logger.info(logMsg)
+}
+
+async function createLogDb (): Promise<any> {
+  const now = new Date().toLocaleString('pt-BR')
+  const logMsg = `Contact was deleted at ${now}`
   await prisma.log.create({
     data: {
       message: logMsg
@@ -102,6 +107,7 @@ export default async function handler (
     case 'DELETE': {
       const { id } = req.query
       await deleteContact(Number(id))
+      await createLogDb()
       res.status(200).end('User deleted.')
       break
     }
